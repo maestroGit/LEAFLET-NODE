@@ -1,0 +1,36 @@
+npm int --yes
+
+
+PS C:\Users\JAVIER\Documents\GIT_Proyectos\leaflet-node> npm i express ejs-mate socket.io
+
+PS C:\Javier_c\CODIGO\javascript\Leaflet\leaflet-node> npm install nodemon -D
+
+Para no tener q ejecutar npm node src/index.js vamos a crear un script en package para ejecuta nodemon ya q no está instaldo de forma global
+
+	 "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon src/index.js"
+    	},
+
+PS C:\Javier_c\CODIGO\javascript\Leaflet\leaflet-node> npm run dev
+
+Instalamos modulo path 
+
+// http://localhost:3000/socket.io/socket.io.js para ver el codigo del socket.io q podemos usar enel clinete para conectarnos en el servidor
+
+En un archivo por separado vamos a escuchar los eventos
+
+--------------
+Para subir la app a heroku
+Desde git instalando heroku cli 
+¿Si lo tengo instalado ? heroku --version
+Logearnos desde consola: heroku login
+Creamos repositorio en git
+git init
+git status
+git add . 
+git status
+debería añadir a .gitignore los archivos sensibles y conexiones a ddbb
+
+
+
