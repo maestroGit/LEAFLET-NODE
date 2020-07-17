@@ -41,6 +41,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 //     console.log('Server on port 3000');
 // });
 //Ahora inicia aplicación server no app
-server.listen(3000, () => {
+server.listen("https://walk-leaflet-node.herokuapp.com/", () => {
     console.log('Server on port 3000');
 });
