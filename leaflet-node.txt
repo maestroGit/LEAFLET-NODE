@@ -25,12 +25,21 @@ Para subir la app a heroku
 Desde git instalando heroku cli 
 ¿Si lo tengo instalado ? heroku --version
 Logearnos desde consola: heroku login
+posicionarnos en el directorio del proyecto
 Creamos repositorio en git
 git init
 git status
 git add . 
 git status
 debería añadir a .gitignore los archivos sensibles y conexiones a ddbb
+git commit -m "first commit"
+
+Subirlo a github 
+conexión:
+git remote add origin https://github.com/maestroGit/LEAFLET-NODE
+envío: git push origin master
+
+
 
 
 
