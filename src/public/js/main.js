@@ -10,19 +10,22 @@ const map = L.map('map-template').setView([0, 0], 2);
 // io es una variable global q al ejecutarla se conecta al servidor y nos devuelve un socket, para enviar o escuchar eventos 
 const socket = io();
 
-//mapa base
-const url = ('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png')
-L.tileLayer(url).addTo(map);
+//Making the map base
+const url = ('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'); 
+//L.tileLayer(url).addTo(map);
+const tiles = L.tileLayer(url);
+tiles.addTo(map);
+
 
 // localizacion con precisión alta - utiliza la API del navegador para localizar al usuario
 map.locate({ enableHigthAccuracy: true })
 
-//escucha evento en el mapa una vezel usuario acepta dar localizcin al navegador
+//escucha evento en el mapa una vez el usuario acepta dar la localizcin al navegador
 map.on('locationfound', e => {
     //console.log(e);
     const coords = [e.latlng.lat, e.latlng.lng]
-    const marker = L.marker(coords);
-    marker.bindPopup('You are here');
+    const marker = L.marker(coords,{icon: myIcon});
+    marker.bindPopup('You are here',);
     map.addLayer(marker);
     //vamos a emitir un evento(mediante const socket = io(); ) al servidor para q escuche nuestras cordenadas
 socket.emit('userCoordinates',e.latlng); //nombre y valor q le pasamos desde el evento q tiene las cordenadas
@@ -36,26 +39,33 @@ socket.on('newUserCoordinates',(coords)=>{
     const marker = L.marker([coords.lat + 1 , coords.lng + 1]);
     marker.bindPopup('Hi! New User');
     map.addLayer(marker);
-})git 
+})
 
 // creamos marcador manual
 const marker = L.marker([51.5, -0.09]);
 marker.bindPopup('Hello There');
 map.addLayer(marker);
 
-//
+// Marcadores con icon leaflet obj
 const myIcon = L.icon({
     iconUrl: 'https://walkexperience.org/wp-content/uploads/2020/06/Walk-logo-97.png',//ruta no correcta !!!
-    iconSize: [25, 45],
-    iconAnchor: [12, 41],
-    popupAnchor: [-3, -76],
+    iconSize: [20, 20],
+    iconAnchor: [12, 41]
+
 });
-L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
+const issIcon = L.icon({
+    iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/International-Space-Station_mark.svg/268px-International-Space-Station_mark.svg.png',
+    iconSize: [25, 45],
+    iconAnchor: [25, 16]
+});
+L.marker([0, 0], {icon: myIcon}).addTo(map);
 
 //Con el protocolo webscket el servidor http envía eventos en tiempo real cuando los usuarios se conectan
 
 // Api get coordenates estación espacial
 const url_apiISS = 'http://api.open-notify.org/iss-now.json';
+
+// Marcador con posición ISS
 async function getISS() {
     const res = await fetch(url_apiISS);
     const data = await res.json();
@@ -64,10 +74,10 @@ async function getISS() {
     document.getElementById('lat').textContent = latitude;
     document.getElementById('lng').textContent = longitude;
     // creamos marcador ISS
-    const markerISS = L.marker([latitude, longitude]);
+    const markerISS = L.marker([latitude, longitude], {icon: issIcon});
     markerISS.bindPopup('Hello ISS');
     map.addLayer(markerISS);
-    setTimeout(getISS, 5000);
+    setTimeout(getISS, 10000);
 }
 
 setTimeout( getISS(),2000);
