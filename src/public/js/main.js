@@ -34,9 +34,9 @@ socket.emit('userCoordinates',e.latlng); //nombre y valor q le pasamos desde el 
 socket.on('newUserCoordinates',(coords)=>{
     console.log('we can see New User');
     const marker = L.marker([coords.lat + 1 , coords.lng + 1]);
-    marker.bindPopup('Hello New User');
+    marker.bindPopup('Hi! New User');
     map.addLayer(marker);
-})
+})git 
 
 // creamos marcador manual
 const marker = L.marker([51.5, -0.09]);
