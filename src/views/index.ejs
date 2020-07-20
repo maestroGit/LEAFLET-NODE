@@ -12,16 +12,31 @@
 </head>
 
 <body>
-<div class="grig">
-    <div id="map-template"></div>
+   
+        <div><h1>Latitud y Longitud</h1></div>
+   
+<div id="map-template"></div>
+<div class="grid">   
         <div class= "coords">
-            <h1>Latitu y Longitud</h1>
-            <div id="lat">
-                </div>
-            <div id="lng">
-                </div>
-    </div>
+            <h1>Lat. <span id='lat'></span></h1>
+                <div id="logo">
+                    <img src="img/iss.png">
+                  </div>
+                  <h1>Long.<span id='lng'></span></h1>
+        </div>
+        
+            <div class= "coords">
+                <h1>Long.<span id='lng'></span></h1>
+                    
+                    <div id="logo">
+                    <img src="img/Walk-logo.png">
+                    </div>
+                    <h1>Long.<span id='lng'></span></h1>
+            </div>
+         
+    
 </div>
+
 
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
     <script src="socket.io/socket.io.js"></script>
