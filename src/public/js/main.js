@@ -1,4 +1,4 @@
-// Utlizaremos leaflet
+// Utilizaremos leaflet
 // Al instanciar leaflet crea la variable L
 // Initialize the map
 const map = L.map('map-template').setView([20, 50], 2);
@@ -14,7 +14,8 @@ const socket = io();
 // load a tile layer
 const url = ('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'); 
 //L.tileLayer(url).addTo(map);
-const tiles = L.tileLayer(url);
+const tiles = L.tileLayer(url, {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'})
 tiles.addTo(map);
 //control de escala
 const scale = L.control.scale();
@@ -51,17 +52,35 @@ const marker = L.marker([51.5, -0.09]);
 marker.bindPopup('Hello There');
 map.addLayer(marker);
 
+//círculo coordenas fijas
+var circle = L.circle([51.508, -0.11], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 500
+}).addTo(map);
+
+//polígono coordenas fijas
+var polygon = L.polygon([
+    [51.000, 0.00],
+    [52.000, 6.00],
+    [57.000, -0.047]
+], {
+    color: 'green',
+    fillColor: '#f03',
+    fillOpacity: 0.5,}).addTo(map);
+
 // Diseño de marcador con icon leaflet obj
 const myIcon = L.icon({
     iconUrl: 'https://walkexperience.org/wp-content/uploads/2020/06/Walk-logo-97.png',
     iconSize: [25, 45],
-    iconAnchor: [30, 26]
+    iconAnchor: [12, 41]
 
 });
 const issIcon = L.icon({
     iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/International-Space-Station_mark.svg/268px-International-Space-Station_mark.svg.png',
     iconSize: [25, 45],
-    iconAnchor: [30, 26]
+    iconAnchor: [12, 41]
 });
 //L.marker([0, 0], {icon: myIcon}).addTo(map); //ecuador 0 0
 
@@ -98,6 +117,16 @@ async function getISS() {
     markerISS.bindPopup('ISS passed at '+formattedTime);
     map.addLayer(markerISS);
 
+    //polígono desde coordenada de ISS
+    var polygon = L.polygon([
+        [latitude, longitude],
+        [51.5, -0.09],
+        [51.5, 2.10]
+    ], {
+        color: 'green',
+        fillColor: '#f03',
+        fillOpacity: 0.5,}).addTo(map);
+
     setTimeout(getISS, 20000);
 }
 
@@ -106,17 +135,6 @@ getISS().catch((err) => {
     console.log(err);
 });
 
-
-//botón
-const btn = document.getElementById('button');
-async function showCoord(){
-    const res = await fetch(url_apiISS);
-    const data = await res.json();
-    console.log(data);
-    console.log('data');
-}
-
-//btn.addEventListener("click", showCoord());
 
 setTimeout( getISS(),1000);
 
